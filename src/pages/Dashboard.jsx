@@ -4,7 +4,7 @@ import Page from '../components/Page'
 import { useOrders } from '../hooks/useOrders'
 import { useStore } from '../store/useStore'
 import { CUSTOMER_TYPES } from '../utils/constants'
-import { formatMoney } from '../utils/format'
+import { formatPrice } from '../utils/currency'
 import { dailyRevenue, dayOfWeekTrend, periodStart, summarize } from '../utils/stats'
 
 const PERIODS = [
@@ -42,7 +42,7 @@ export default function Dashboard() {
   const s = useMemo(() => summarize(inPeriod), [inPeriod])
   const dow = useMemo(() => dayOfWeekTrend(orders, now), [orders, now])
   const daily = useMemo(() => (period === 'today' ? [] : dailyRevenue(inPeriod, from, now)), [inPeriod, period, from, now])
-  const money = (v) => formatMoney(Number(v), currency)
+  const money = (v) => formatPrice(Number(v), currency)
   const maxQty = s.bestSellers[0]?.qty ?? 1
 
   if (loading) return <Page title="Stats"><p className="text-lg">Loading…</p></Page>

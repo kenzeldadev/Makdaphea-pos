@@ -1,5 +1,5 @@
 import { useLongPress } from '../hooks/useLongPress'
-import { formatMoney } from '../utils/format'
+import { formatPrice } from '../utils/currency'
 import ItemImage from './ItemImage'
 
 // The "−" button sits inside the card; stop its pointer events reaching the card's tap logic
@@ -13,7 +13,7 @@ export default function MenuCard({ item, qty, currency, compact = false, onAdd, 
     <div
       role="button"
       tabIndex={0}
-      aria-label={`${item.name}, ${formatMoney(item.price, currency)}, quantity ${qty}`}
+      aria-label={`${item.name}, ${formatPrice(item.price, currency)}, quantity ${qty}`}
       {...press}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -38,7 +38,7 @@ export default function MenuCard({ item, qty, currency, compact = false, onAdd, 
           {item.name}
         </div>
         <div className={`mt-1 font-bold tabular-nums text-[#a94930] ${compact ? 'text-base' : 'text-lg'}`}>
-          {formatMoney(item.price, currency)}
+          {formatPrice(item.price, currency)}
         </div>
       </div>
 

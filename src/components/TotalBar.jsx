@@ -1,4 +1,4 @@
-import { formatMoney } from '../utils/format'
+import { formatPrice } from '../utils/currency'
 
 export default function TotalBar({ total, itemCount, currency, canConfirm, busy, onConfirm, onClear }) {
   return (
@@ -10,7 +10,7 @@ export default function TotalBar({ total, itemCount, currency, canConfirm, busy,
         <div className="text-xs font-medium uppercase tracking-wider text-[#737a74]">
           Total · {itemCount} {itemCount === 1 ? 'item' : 'items'}
         </div>
-        <div className="truncate text-3xl font-bold tabular-nums tracking-tight text-[#202923] sm:text-4xl">{formatMoney(total, currency)}</div>
+        <div className="truncate text-3xl font-bold tabular-nums tracking-tight text-[#202923] sm:text-4xl">{formatPrice(total, currency)}</div>
       </div>
       <button
         type="button"

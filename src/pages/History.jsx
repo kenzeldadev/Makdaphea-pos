@@ -6,7 +6,8 @@ import { deleteOrder } from '../db/database'
 import { useOrders } from '../hooks/useOrders'
 import { useStore } from '../store/useStore'
 import { CUSTOMER_TYPES } from '../utils/constants'
-import { formatMoney, round2 } from '../utils/format'
+import { formatPrice } from '../utils/currency'
+import { round2 } from '../utils/format'
 
 const PAGE_SIZE = 50
 const FILTERS = ['all', ...CUSTOMER_TYPES.map((c) => c.value)]
@@ -50,7 +51,7 @@ export default function History() {
           ))}
         </div>
         <p className="text-lg font-bold">
-          {filtered.length} {filtered.length === 1 ? 'order' : 'orders'} · {formatMoney(sum, currency)}
+          {filtered.length} {filtered.length === 1 ? 'order' : 'orders'} · {formatPrice(sum, currency)}
         </p>
       </div>
 
@@ -71,12 +72,12 @@ export default function History() {
               {o.items.map((i) => (
                 <li key={i.id} className="flex justify-between gap-2">
                   <span>{i.qty} × {i.name}</span>
-                  <span className="tabular-nums">{formatMoney(i.qty * i.price, currency)}</span>
+                  <span className="tabular-nums">{formatPrice(i.qty * i.price, currency)}</span>
                 </li>
               ))}
             </ul>
             <div className="flex items-center justify-between border-t border-stone-200 pt-2">
-              <span className="text-2xl font-bold tabular-nums text-[#202923]">{formatMoney(o.total, currency)}</span>
+              <span className="text-2xl font-bold tabular-nums text-[#202923]">{formatPrice(o.total, currency)}</span>
               <button type="button" className="btn btn-ghost text-[#a83e35]" onClick={() => setToDelete(o)}>Delete</button>
             </div>
           </div>
@@ -93,7 +94,7 @@ export default function History() {
         open={!!toDelete}
         danger
         title="Delete this order?"
-        message={toDelete ? `${formatMoney(toDelete.total, currency)} from ${format(toDelete.timestamp, 'd MMM, HH:mm')} will be removed from your sales totals.` : ''}
+        message={toDelete ? `${formatPrice(toDelete.total, currency)} from ${format(toDelete.timestamp, 'd MMM, HH:mm')} will be removed from your sales totals.` : ''}
         confirmLabel="Delete order"
         onCancel={() => setToDelete(null)}
         onConfirm={async () => {

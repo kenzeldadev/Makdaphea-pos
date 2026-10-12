@@ -4,7 +4,7 @@ import { ConfirmDialog, Modal } from '../components/Modal'
 import Page from '../components/Page'
 import Toggle from '../components/Toggle'
 import { useStore } from '../store/useStore'
-import { formatMoney } from '../utils/format'
+import { formatPrice } from '../utils/currency'
 import { fileToCompressedDataUrl } from '../utils/image'
 
 const EMPTY = { name: '', price: '', image: '🍜', category: 'main', active: true }
@@ -66,7 +66,7 @@ export default function MenuEditor() {
             </div>
             <div className="min-w-0 flex-1">
               <div className="truncate text-base font-semibold text-[#29342e]">{m.name}</div>
-              <div className="text-base font-bold text-[#a94930]">{formatMoney(m.price, currency)}</div>
+              <div className="text-base font-bold text-[#a94930]">{formatPrice(m.price, currency)}</div>
             </div>
             <Toggle checked={m.active} label={`${m.name} shown on sell screen`} onChange={(v) => setActive(m.id, v)} />
           </div>
@@ -105,7 +105,7 @@ export default function MenuEditor() {
               <input className="input" value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
             </label>
             <label className="flex flex-col gap-1 font-bold">
-              Price ({currency})
+              Price (USD)
               <input
                 className="input"
                 type="number"

@@ -4,7 +4,7 @@ import MenuCard from '../components/MenuCard'
 import Toast from '../components/Toast'
 import TotalBar from '../components/TotalBar'
 import { useStore } from '../store/useStore'
-import { formatMoney } from '../utils/format'
+import { formatPrice } from '../utils/currency'
 import { buildLines, gridCols, sumLines } from '../utils/order'
 import { tapFeedback } from '../utils/sound'
 
@@ -59,7 +59,7 @@ export default function TapScreen() {
       const order = await confirmOrder()
       if (order) {
         tapFeedback(soundOn, 'add')
-        showToast(`Saved ${formatMoney(order.total, currency)}`, async () => {
+        showToast(`Saved ${formatPrice(order.total, currency)}`, async () => {
           await undoOrder(order)
           showToast('Order restored')
         })

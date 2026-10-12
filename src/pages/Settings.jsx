@@ -66,7 +66,7 @@ export default function SettingsPage() {
               </button>
             ))}
           </div>
-          <p className="mt-1 text-stone-600">Changing currency does not convert prices. Update them in Menu.</p>
+          <p className="mt-1 text-stone-600">Prices are stored in USD and displayed in the selected currency.</p>
         </div>
 
         <div className="flex items-center justify-between">
